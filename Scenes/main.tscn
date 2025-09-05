@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=3 uid="uid://behs3ty4xq6ws"]
+
+[ext_resource type="Script" uid="uid://b4aw7qvhbrpkb" path="res://Scripts/Points/PointsStorage.gd" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://dhl2tximlvjja" path="res://Scripts/Points/PointsManager.gd" id="1_jjvhh"]
+[ext_resource type="Script" uid="uid://4mu1p3y74aj1" path="res://Scripts/Gameplay/DraggableCamera.gd" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://clpbf4xt0sroa" path="res://Scripts/DevTools/cheats_handler.gd" id="3_8gbba"]
+[ext_resource type="Resource" uid="uid://d0ffw1pcem8c2" path="res://Resources/Points/MainPoint.tres" id="3_kry3j"]
+[ext_resource type="Resource" uid="uid://fq0k0u6tstju" path="res://Resources/Points/SecondPoint.tres" id="4_6bp64"]
+[ext_resource type="Script" uid="uid://2tcbkbjiutd" path="res://Scripts/Points/PointsDeliver.gd" id="4_21xkr"]
+[ext_resource type="Resource" uid="uid://bblsfw587hq1u" path="res://Resources/Points/BigPoint.tres" id="5_344ge"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="PointsManager" type="Node2D" parent="."]
+script = ExtResource("1_jjvhh")
+
+[node name="Storages" type="Node2D" parent="PointsManager"]
+
+[node name="From" type="Node2D" parent="PointsManager/Storages"]
+script = ExtResource("1_jjgbg")
+points = 368
+max_columns = 5
+max_rows = 5
+point_res = ExtResource("3_kry3j")
+
+[node name="From2" type="Node2D" parent="PointsManager/Storages"]
+position = Vector2(0, 474)
+script = ExtResource("1_jjgbg")
+points = 368
+max_columns = 5
+max_rows = 5
+point_res = ExtResource("4_6bp64")
+
+[node name="From3" type="Node2D" parent="PointsManager/Storages"]
+position = Vector2(0, 868)
+script = ExtResource("1_jjgbg")
+points = 368
+max_columns = 5
+max_rows = 5
+point_res = ExtResource("5_344ge")
+
+[node name="To1" type="Node2D" parent="PointsManager/Storages"]
+position = Vector2(637, 154)
+script = ExtResource("1_jjgbg")
+sellable = true
+point_res = ExtResource("3_kry3j")
+
+[node name="To2" type="Node2D" parent="PointsManager/Storages"]
+position = Vector2(629, -34)
+script = ExtResource("1_jjgbg")
+sellable = true
+point_res = ExtResource("3_kry3j")
+
+[node name="To3" type="Node2D" parent="PointsManager/Storages"]
+position = Vector2(637, 707)
+script = ExtResource("1_jjgbg")
+sellable = true
+point_res = ExtResource("4_6bp64")
+
+[node name="To4" type="Node2D" parent="PointsManager/Storages"]
+position = Vector2(629, 519)
+script = ExtResource("1_jjgbg")
+sellable = true
+point_res = ExtResource("4_6bp64")
+
+[node name="Delivers" type="Node2D" parent="PointsManager"]
+
+[node name="Deliver1" type="Node2D" parent="PointsManager/Delivers"]
+position = Vector2(358, 196)
+script = ExtResource("4_21xkr")
+max_delivered_points = 3
+speed = 10.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_speed = 8.0
+script = ExtResource("2_bo1nx")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("3_8gbba")

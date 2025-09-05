@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Point" load_steps=2 format=3 uid="uid://fq0k0u6tstju"]
+
+[ext_resource type="Script" uid="uid://b6qfxrryfvngg" path="res://Scripts/Points/PointRes.gd" id="1_2r4nh"]
+
+[resource]
+script = ExtResource("1_2r4nh")
+radius = 15.0
+color = Color(0.97353274, 0.51469576, 0.37625644, 1)
+metadata/_custom_type_script = "uid://b6qfxrryfvngg"
