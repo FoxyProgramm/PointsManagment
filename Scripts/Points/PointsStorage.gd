@@ -37,6 +37,9 @@ func remove_point() -> bool:
 	points -= 1
 	return true
 
+func get_points_to_fill() -> int:
+	return max_points_count - points
+
 func get_max_size() -> Vector2:
 	return Vector2(
 		(max_columns * point_res.radius * 2) + ( (max_columns - 1) * space_between ),

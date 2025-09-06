@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_om3ph")
+name = "BIG POINT"
 radius = 25.0
 color = Color(0.34677193, 0.7504078, 0.60082054, 1)
 metadata/_custom_type_script = "uid://b6qfxrryfvngg"

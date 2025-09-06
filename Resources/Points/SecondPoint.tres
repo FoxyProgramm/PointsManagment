@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_2r4nh")
+name = "Orange Point"
 radius = 15.0
 color = Color(0.97353274, 0.51469576, 0.37625644, 1)
 metadata/_custom_type_script = "uid://b6qfxrryfvngg"

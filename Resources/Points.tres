@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PointsSave" load_steps=6 format=3 uid="uid://c18qr433doj03"]
+
+[ext_resource type="Script" uid="uid://b6qfxrryfvngg" path="res://Scripts/Points/PointRes.gd" id="1_d7f5m"]
+[ext_resource type="Script" uid="uid://bffib0q4cgs1b" path="res://Scripts/Classes/PointsSave.gd" id="1_pa4m1"]
+[ext_resource type="Resource" uid="uid://bblsfw587hq1u" path="res://Resources/Points/BigPoint.tres" id="2_5davt"]
+[ext_resource type="Resource" uid="uid://d0ffw1pcem8c2" path="res://Resources/Points/MainPoint.tres" id="3_2wwrb"]
+[ext_resource type="Resource" uid="uid://fq0k0u6tstju" path="res://Resources/Points/SecondPoint.tres" id="4_678sj"]
+
+[resource]
+script = ExtResource("1_pa4m1")
+points = Array[ExtResource("1_d7f5m")]([ExtResource("2_5davt"), ExtResource("3_2wwrb"), ExtResource("4_678sj")])

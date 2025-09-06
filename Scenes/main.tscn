@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://behs3ty4xq6ws"]
+[gd_scene load_steps=20 format=3 uid="uid://behs3ty4xq6ws"]
 
 [ext_resource type="Script" uid="uid://b4aw7qvhbrpkb" path="res://Scripts/Points/PointsStorage.gd" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://dhl2tximlvjja" path="res://Scripts/Points/PointsManager.gd" id="1_jjvhh"]
@@ -8,6 +8,38 @@
 [ext_resource type="Resource" uid="uid://fq0k0u6tstju" path="res://Resources/Points/SecondPoint.tres" id="4_6bp64"]
 [ext_resource type="Script" uid="uid://2tcbkbjiutd" path="res://Scripts/Points/PointsDeliver.gd" id="4_21xkr"]
 [ext_resource type="Resource" uid="uid://bblsfw587hq1u" path="res://Resources/Points/BigPoint.tres" id="5_344ge"]
+[ext_resource type="Script" uid="uid://dlcc51tk70wat" path="res://Scripts/Points/Spaceship.gd" id="7_hptm8"]
+[ext_resource type="Script" uid="uid://ddaf8nfdasbjv" path="res://Scripts/Classes/BoxColor.gd" id="8_d1ilt"]
+[ext_resource type="Script" uid="uid://b7046nwx0cpqt" path="res://Scripts/Points/Buyer.gd" id="9_6iyac"]
+[ext_resource type="Script" uid="uid://b6qfxrryfvngg" path="res://Scripts/Points/PointRes.gd" id="10_fdnlq"]
+[ext_resource type="Script" uid="uid://bp15xgtxq71h2" path="res://Scripts/Gameplay/UI.gd" id="13_fdnlq"]
+
+[sub_resource type="Resource" id="Resource_jkdf5"]
+script = ExtResource("10_fdnlq")
+radius = 20.0
+color = Color(0.58393824, 0.79578745, 0.55246264, 1)
+metadata/_custom_type_script = "uid://b6qfxrryfvngg"
+
+[sub_resource type="Resource" id="Resource_6iyac"]
+script = ExtResource("8_d1ilt")
+color = Color(0.64326316, 0.5489906, 0.74862546, 1)
+outline = Color(0.23695357, 0.12041163, 0.39257225, 1)
+outline_width = 5.0
+metadata/_custom_type_script = "uid://ddaf8nfdasbjv"
+
+[sub_resource type="Gradient" id="Gradient_6iyac"]
+offsets = PackedFloat32Array(0.37951806)
+colors = PackedColorArray(0.5261102, 0.2409883, 0.14753622, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fdnlq"]
+gradient = SubResource("Gradient_6iyac")
+
+[sub_resource type="Gradient" id="Gradient_fdnlq"]
+offsets = PackedFloat32Array(0.40963855)
+colors = PackedColorArray(0.8757144, 0.5961092, 0.35627717, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jkdf5"]
+gradient = SubResource("Gradient_fdnlq")
 
 [node name="Node2D" type="Node2D"]
 
@@ -43,24 +75,28 @@ point_res = ExtResource("5_344ge")
 position = Vector2(637, 154)
 script = ExtResource("1_jjgbg")
 sellable = true
+points = 6
 point_res = ExtResource("3_kry3j")
 
 [node name="To2" type="Node2D" parent="PointsManager/Storages"]
 position = Vector2(629, -34)
 script = ExtResource("1_jjgbg")
 sellable = true
+points = 6
 point_res = ExtResource("3_kry3j")
 
 [node name="To3" type="Node2D" parent="PointsManager/Storages"]
 position = Vector2(637, 707)
 script = ExtResource("1_jjgbg")
 sellable = true
+points = 6
 point_res = ExtResource("4_6bp64")
 
 [node name="To4" type="Node2D" parent="PointsManager/Storages"]
 position = Vector2(629, 519)
 script = ExtResource("1_jjgbg")
 sellable = true
+points = 6
 point_res = ExtResource("4_6bp64")
 
 [node name="Delivers" type="Node2D" parent="PointsManager"]
@@ -71,9 +107,85 @@ script = ExtResource("4_21xkr")
 max_delivered_points = 3
 speed = 10.0
 
+[node name="Buyers" type="Node2D" parent="PointsManager"]
+
+[node name="Buyer" type="Node2D" parent="PointsManager/Buyers"]
+visible = false
+position = Vector2(1275, 383)
+script = ExtResource("9_6iyac")
+buyer = SubResource("Resource_jkdf5")
+
+[node name="Buyer2" type="Node2D" parent="PointsManager/Buyers"]
+visible = false
+position = Vector2(1275, 383)
+script = ExtResource("9_6iyac")
+delay = 0.8
+buyer = SubResource("Resource_jkdf5")
+
+[node name="Spaceships" type="Node2D" parent="PointsManager"]
+
+[node name="Spaceship" type="Node2D" parent="PointsManager/Spaceships"]
+position = Vector2(1679, 383)
+script = ExtResource("7_hptm8")
+size = Vector2(200, 200)
+color_theme = SubResource("Resource_6iyac")
+
+[node name="Texts" type="Node2D" parent="PointsManager"]
+
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(594, 373)
 position_smoothing_speed = 8.0
 script = ExtResource("2_bo1nx")
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("3_8gbba")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("13_fdnlq")
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Control"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+offset_left = 15.0
+offset_top = 12.000002
+offset_right = 47.0
+offset_bottom = 44.0
+rotation = 0.7853982
+pivot_offset = Vector2(16, 16)
+texture = SubResource("GradientTexture2D_fdnlq")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="TextureRect2" type="TextureRect" parent="UI/Control/TextureRect/MarginContainer"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_jkdf5")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Money" type="Label" parent="UI/Control"]
+layout_mode = 1
+offset_left = 61.0
+offset_top = 4.0
+offset_right = 79.0
+offset_bottom = 49.0
+theme_override_font_sizes/font_size = 32
+text = "0"
