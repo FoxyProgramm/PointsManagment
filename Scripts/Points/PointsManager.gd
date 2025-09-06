@@ -8,6 +8,7 @@ signal points_changed
 var can_pressed:bool = false
 
 var active_storage:PointsStorage
+var moving_storage:bool = false
 
 @export_range(0.0, 25.0, 0.1) var storage_box_padding:float = 10.0
 
@@ -33,20 +34,49 @@ func check_click_in_storage() -> void:
 		active_storage.state = STORAGE_STATES.STATIC
 		active_storage.queue_redraw()
 		active_storage = null
+		moving_storage = false
 	
-
+var drag_timer:int = 10
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("start_drag"):
-		can_pressed = true
+		if !moving_storage:
+			can_pressed = true
+			drag_timer = 10
 	elif event.is_action_released("start_drag") and can_pressed:
 		check_click_in_storage()
 	if event is InputEventMouseMotion:
-		can_pressed = false
+		if can_pressed:
+			drag_timer -= 1
+			if drag_timer <= 0:
+				can_pressed = false
 		
 	if event.is_action_pressed("plus_point") and active_storage:
 		active_storage.add_point()
 	elif event.is_action_pressed("minus_point") and active_storage:
 		active_storage.remove_point()
+		
+	if event.is_action_pressed("move_storage") and active_storage:
+		if active_storage.state == STORAGE_STATES.SELECTED:
+			active_storage.state = STORAGE_STATES.MOVE
+			moving_storage = true
+		elif active_storage.state == STORAGE_STATES.MOVE and active_storage.can_place:
+			active_storage.state = STORAGE_STATES.SELECTED
+			moving_storage = false
+		active_storage.queue_redraw()
+
+func _process(delta: float) -> void:
+	if moving_storage:
+		active_storage.global_position = get_global_mouse_position()
+
+func _physics_process(delta: float) -> void:
+	if moving_storage:
+		for storage:PointsStorage in $Storages.get_children():
+			if storage == active_storage: continue
+			if active_storage.get_global_rect().intersects( storage.get_global_rect(), true ):
+				active_storage.can_place = false
+				break
+			else :
+				active_storage.can_place = true
 
 func get_storage_by_points(specific_res:Point = null, is_sell:bool = false, find_max_points:bool = true, deny_full:bool = false, deny_emply:bool = false) -> PointsStorage:
 	var list:Dictionary[int, PointsStorage] = {}

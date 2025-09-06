@@ -67,8 +67,8 @@ point_res = ExtResource("4_6bp64")
 position = Vector2(0, 868)
 script = ExtResource("1_jjgbg")
 points = 368
-max_columns = 5
-max_rows = 5
+max_columns = 4
+max_rows = 4
 point_res = ExtResource("5_344ge")
 
 [node name="To1" type="Node2D" parent="PointsManager/Storages"]
@@ -99,6 +99,15 @@ sellable = true
 points = 6
 point_res = ExtResource("4_6bp64")
 
+[node name="To5" type="Node2D" parent="PointsManager/Storages"]
+position = Vector2(804, 994)
+script = ExtResource("1_jjgbg")
+sellable = true
+points = 6
+max_columns = 2
+max_rows = 2
+point_res = ExtResource("5_344ge")
+
 [node name="Delivers" type="Node2D" parent="PointsManager"]
 
 [node name="Deliver1" type="Node2D" parent="PointsManager/Delivers"]
@@ -113,6 +122,7 @@ speed = 10.0
 visible = false
 position = Vector2(1275, 383)
 script = ExtResource("9_6iyac")
+speed_multiplier = 10.0
 buyer = SubResource("Resource_jkdf5")
 
 [node name="Buyer2" type="Node2D" parent="PointsManager/Buyers"]
@@ -120,6 +130,7 @@ visible = false
 position = Vector2(1275, 383)
 script = ExtResource("9_6iyac")
 delay = 0.8
+speed_multiplier = 10.0
 buyer = SubResource("Resource_jkdf5")
 
 [node name="Spaceships" type="Node2D" parent="PointsManager"]

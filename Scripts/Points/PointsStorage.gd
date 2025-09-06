@@ -19,6 +19,11 @@ class_name PointsStorage extends Node2D
 
 var max_points_count: int = 0
 var state:PointsManager.STORAGE_STATES = 0
+var can_place:bool = false :
+	set(state):
+		if state != can_place:
+			can_place = state
+			queue_redraw()
 
 func _ready() -> void:
 	max_points_count = max_columns * max_rows
@@ -61,7 +66,10 @@ func _draw() -> void:
 		PointsManager.STORAGE_STATES.SELECTED:
 			box_style = Global.points_manager.box_color_selected
 		PointsManager.STORAGE_STATES.MOVE:
-			box_style = Global.points_manager.box_color_can_move
+			if can_place:
+				box_style = Global.points_manager.box_color_can_move
+			else :
+				box_style = Global.points_manager.box_color_cant_move
 	
 	draw_rect(box_sizes, box_style.color)
 	draw_rect(box_sizes, box_style.outline, false, box_style.outline_width, true)
