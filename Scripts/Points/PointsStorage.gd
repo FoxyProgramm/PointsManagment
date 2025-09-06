@@ -26,6 +26,7 @@ var can_place:bool = false :
 			queue_redraw()
 
 func _ready() -> void:
+	global_position = (global_position / Global.grid).floor() * Global.grid
 	max_points_count = max_columns * max_rows
 	if points > max_points_count: points = max_points_count
 

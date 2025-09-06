@@ -22,5 +22,8 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("zoom_in"):
 		zoom_to *= 1.1
+		move_to = move_to.lerp(get_global_mouse_position(), 0.1)
+		
 	elif event.is_action_pressed("zoom_out"):
 		zoom_to *= 0.9
+		move_to = move_to.lerp(get_global_mouse_position(), -0.1)

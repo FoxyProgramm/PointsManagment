@@ -20,30 +20,43 @@ var box_color_selected = BoxColor.create( Color(1.0, 0.635, 0.11, 0.4), Color(1.
 var box_color_can_move = BoxColor.create( Color(0.447, 0.851, 0.306, 0.4), Color(0.421, 0.7, 0.243, 1.0) )
 var box_color_cant_move = BoxColor.create( Color(0.839, 0.237, 0.302, 0.4), Color(0.799, 0.054, 0.218, 1.0) )
 
-func check_click_in_storage() -> void:
+func get_storage_on_pointer() -> PointsStorage:
 	for storage:PointsStorage in $Storages.get_children():
 		if storage.get_global_rect().has_point( get_global_mouse_position()):
-			if active_storage:
-				active_storage.state = STORAGE_STATES.STATIC
-				active_storage.queue_redraw()
-			active_storage = storage
-			storage.state = STORAGE_STATES.SELECTED
-			storage.queue_redraw()
-			return
-	if active_storage:
-		active_storage.state = STORAGE_STATES.STATIC
-		active_storage.queue_redraw()
-		active_storage = null
-		moving_storage = false
+			return storage
+	return null
+
+func check_click_in_storage() -> void:
+	var storage := get_storage_on_pointer()
+	if storage:
+		if active_storage:
+			active_storage.state = STORAGE_STATES.STATIC
+			active_storage.queue_redraw()
+		active_storage = storage
+		storage.state = STORAGE_STATES.SELECTED
+		storage.queue_redraw()
+	else :
+		if active_storage:
+			active_storage.state = STORAGE_STATES.STATIC
+			active_storage.queue_redraw()
+			active_storage = null
+			moving_storage = false
 	
 var drag_timer:int = 10
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("start_drag"):
-		if !moving_storage:
-			can_pressed = true
-			drag_timer = 10
+		can_pressed = true
+		drag_timer = 10
 	elif event.is_action_released("start_drag") and can_pressed:
-		check_click_in_storage()
+		if moving_storage:
+			if active_storage.can_place:
+				active_storage.state = STORAGE_STATES.STATIC
+				moving_storage = false
+				active_storage.queue_redraw()
+				active_storage = null
+		else :
+			check_click_in_storage()
+		
 	if event is InputEventMouseMotion:
 		if can_pressed:
 			drag_timer -= 1
@@ -55,18 +68,26 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("minus_point") and active_storage:
 		active_storage.remove_point()
 		
-	if event.is_action_pressed("move_storage") and active_storage:
-		if active_storage.state == STORAGE_STATES.SELECTED:
-			active_storage.state = STORAGE_STATES.MOVE
-			moving_storage = true
-		elif active_storage.state == STORAGE_STATES.MOVE and active_storage.can_place:
-			active_storage.state = STORAGE_STATES.SELECTED
-			moving_storage = false
-		active_storage.queue_redraw()
+	if event.is_action_pressed("move_storage"):
+		if active_storage:
+			if active_storage.state == STORAGE_STATES.SELECTED:
+				active_storage.state = STORAGE_STATES.MOVE
+				moving_storage = true
+			elif active_storage.state == STORAGE_STATES.MOVE and active_storage.can_place:
+				active_storage.state = STORAGE_STATES.SELECTED
+				moving_storage = false
+			active_storage.queue_redraw()
+		else :
+			var storage:= get_storage_on_pointer()
+			if storage:
+				active_storage = storage
+				active_storage.state = STORAGE_STATES.MOVE
+				moving_storage = true
+				active_storage.queue_redraw()
 
 func _process(delta: float) -> void:
 	if moving_storage:
-		active_storage.global_position = get_global_mouse_position()
+		active_storage.global_position = (get_global_mouse_position() / Global.grid).floor() * Global.grid
 
 func _physics_process(delta: float) -> void:
 	if moving_storage:
@@ -112,3 +133,6 @@ func get_storage_by_emptiness(type:EMPTY_TYPES) -> PointsStorage:
 				if child.points == child.max_points_count:
 					return child
 	return null
+
+func _draw() -> void:
+	draw

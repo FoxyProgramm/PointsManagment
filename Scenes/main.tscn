@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://behs3ty4xq6ws"]
+[gd_scene load_steps=24 format=3 uid="uid://behs3ty4xq6ws"]
 
 [ext_resource type="Script" uid="uid://b4aw7qvhbrpkb" path="res://Scripts/Points/PointsStorage.gd" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://dhl2tximlvjja" path="res://Scripts/Points/PointsManager.gd" id="1_jjvhh"]
@@ -13,6 +13,9 @@
 [ext_resource type="Script" uid="uid://b7046nwx0cpqt" path="res://Scripts/Points/Buyer.gd" id="9_6iyac"]
 [ext_resource type="Script" uid="uid://b6qfxrryfvngg" path="res://Scripts/Points/PointRes.gd" id="10_fdnlq"]
 [ext_resource type="Script" uid="uid://bp15xgtxq71h2" path="res://Scripts/Gameplay/UI.gd" id="13_fdnlq"]
+[ext_resource type="Script" uid="uid://07lunxiob5ow" path="res://Scripts/DevTools/BakeTextures.gd" id="14_jkdf5"]
+[ext_resource type="Script" uid="uid://bboe1uxedc7p3" path="res://Scripts/Props/LoadTexture.gd" id="14_k12tt"]
+[ext_resource type="Script" uid="uid://m5t6y044yeki" path="res://Scripts/DevTools/TexturesCreator.gd" id="15_wsu2k"]
 
 [sub_resource type="Resource" id="Resource_jkdf5"]
 script = ExtResource("10_fdnlq")
@@ -40,6 +43,8 @@ colors = PackedColorArray(0.8757144, 0.5961092, 0.35627717, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jkdf5"]
 gradient = SubResource("Gradient_fdnlq")
+
+[sub_resource type="Theme" id="Theme_k12tt"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -200,3 +205,232 @@ offset_right = 79.0
 offset_bottom = 49.0
 theme_override_font_sizes/font_size = 32
 text = "0"
+
+[node name="Control2" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBC" type="HBoxContainer" parent="UI/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="dummy" type="Control" parent="UI/Control2/HBC"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MC" type="MarginContainer" parent="UI/Control2/HBC"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="MenuButton" type="TextureButton" parent="UI/Control2/HBC/MC"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+stretch_mode = 5
+script = ExtResource("14_k12tt")
+normal_texture_name = "MenuButton"
+
+[node name="Menu" type="Control" parent="UI/Control2/HBC"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control2/HBC/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Control2/HBC/Menu/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Container" type="PanelContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Label 2"
+
+[node name="VSplitContainer" type="HSeparator" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+theme = SubResource("Theme_k12tt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sub thing"
+
+[node name="Button" type="Button" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "button"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sub thing"
+
+[node name="Button" type="Button" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "button"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sub thing"
+
+[node name="Button" type="Button" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "button"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sub thing"
+
+[node name="Button" type="Button" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/Container/MarginContainer/VBoxContainer3/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "button"
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Label 1"
+
+[node name="VSplitContainer" type="HSeparator" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sub thing"
+
+[node name="Button" type="Button" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "button"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sub thing"
+
+[node name="Button" type="Button" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "button"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sub thing"
+
+[node name="Button" type="Button" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "button"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sub thing"
+
+[node name="Button" type="Button" parent="UI/Control2/HBC/Menu/PanelContainer/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "button"
+
+[node name="TexturesBaker" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(64, 64)
+script = ExtResource("14_jkdf5")
+
+[node name="TexturesCreator" type="Node2D" parent="TexturesBaker"]
+script = ExtResource("15_wsu2k")
